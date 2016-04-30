@@ -9,7 +9,7 @@ from . import config as app_config
 from .util import generic_response
 
 __version__ = '1.0'
-__all__ = ['create_application']
+__all__ = ['create']
 
 LOG = logging.getLogger(__name__)
 LOG.setLevel(logging.DEBUG)

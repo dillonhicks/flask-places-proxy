@@ -1,6 +1,7 @@
 # flask-places-proxy
 Flask example that is a proxy and cache for Google Places API Results. Further, it acts as a real running example of
-`rekt_googleplaces`.
+[rekt](https://github.com/vengefuldrx/rekt) runtime client generation and the related GooglePlaces API specific wrappers
+[rekt_googleplaces](https://github.com/vengefuldrx/rekt-googleplaces).
 
 ## Running the Code
 
