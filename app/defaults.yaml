@@ -1,0 +1,70 @@
+##############################
+# Heirarchical Flask Config
+#
+# You can select a run configuration with
+#   run.py <config-section>
+#
+##############################
+
+#
+# The list of default config values for vanilla flask
+#
+flask-app: &flask-app
+  APPLICATION_ROOT :
+  DEBUG : true
+  JONIFY_PRETTYPRINT_REGULAR : true
+  JSON_AS_ASCII : true
+  JSON_SORT_KEYS : true
+  LOGGER_NAME : app
+  MAX_CONTENT_LENGTH :
+  PERMANENT_SESSION_LIFETIME : !!python/object/apply:datetime.timedelta [31, 0, 0]
+  PREFERRED_URL_SCHEME : http
+  PRESERVE_CONTEXT_ON_EXCEPTION :
+  PROPAGATE_EXCEPTIONS :
+  SECRET_KEY :
+  SEND_FILE_MAX_AGE_DEFAULT : 43200
+  SERVER_NAME :
+  SESSION_COOKIE_DOMAIN :
+  SESSION_COOKIE_HTTPONLY : true
+  SESSION_COOKIE_NAME : session
+  SESSION_COOKIE_PATH :
+  SESSION_COOKIE_SECURE : false
+  TESTING : false
+  TRAP_BAD_REQUEST_ERRORS : false
+  TRAP_HTTP_EXCEPTIONS : false
+  USE_X_SENDFILE : false
+
+
+
+# All of the flask defaults combined into the base uber config
+common: &common
+
+  BIND_PORT : 8000
+  EXPOSE_PORT : null
+
+  DEBUG : false
+  TESTING : false
+
+  HOSTNAME : localhost
+  GOOGLE_PLACES_API_KEY: '#######################'
+
+
+# Debug Configuration
+#
+debug: &debug
+  <<: *common # Import values from the common section
+
+  # You can override config values for this section
+  DEBUG : true
+  TESTING : true
+  GOOGLE_PLACES_API_KEY: '############################'
+
+
+pre-prod: &pre-prod
+  <<: *common
+  # My Pre-Prod Config
+
+prod: &prod
+  <<: *common
+  # My Prod Config
+

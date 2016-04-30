@@ -1,0 +1,8 @@
+flask
+git+https://github.com/vengefuldrx/rekt.git
+git+https://github.com/vengefuldrx/rekt-googlecore.git
+git+https://github.com/vengefuldrx/rekt-googleplaces.git
+flask_restful
+flask_script
+geopy
+eventlet
