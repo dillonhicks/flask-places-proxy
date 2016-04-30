@@ -43,8 +43,10 @@ def init(app):
     """blueprint factory method that initializes the restapi object
     with the flask app context"""
 
-    #: Weird scoping context. This needs to be locally aliased
-    #: for reasons I have not fully discovered.
+    #: Weird scoping context that requies the module level attribute
+    #: to be locally aliased for reasons I have not fully discovered. My best guess
+    #: is that there is some flask thread local context
+    #: funkiness.
     rest = _rest
 
     #: Init the rest service dependencies
@@ -58,16 +60,16 @@ def init(app):
     rest.port = app.config.get('EXPOSE_PORT', app.config['BIND_PORT'])
     rest.engine = SearchEngine(rest.hostname, rest.port, _ENDPOINT, rest.googleplaces, rest.cache)
 
+    #: Service API Endpoints
+    rest.add_resource(PlacesResource, _ENDPOINT + '/place')
+    app.add_url_rule(_ENDPOINT + '/photo', view_func=PhotoResource.as_view('venue_photo_api'))
+    rest.init_app(app)
+
     if not hasattr(app, 'extensions'):
         app.extensions = {}
 
-    app.extensions['MyRestService'] = _RestAPIState(rest.hostname, rest.port, _ENDPOINT, rest.engine, rest.googleplaces, rest.cache)
-
-    #:
-    rest.add_resource(PlacesResource, _ENDPOINT + '/place')
-
-    app.add_url_rule(_ENDPOINT + '/photo', view_func=PhotoResource.as_view('venue_photo_api'))
-    rest.init_app(app)
+    app.extensions['MyRestService'] = _RestAPIState(rest.hostname, rest.port, _ENDPOINT, rest.engine, rest.googleplaces,
+                                                    rest.cache)
 
 
 class PlacesResource(Resource):
